@@ -113,31 +113,270 @@ export default {
 
 async function nginx() {
 	const text = `
-	<!DOCTYPE html>
-	<html>
-	<head>
-	<title>Welcome to nginx!</title>
-	<style>
-		body {
-			width: 35em;
-			margin: 0 auto;
-			font-family: Tahoma, Verdana, Arial, sans-serif;
-		}
-	</style>
-	</head>
-	<body>
-	<h1>Welcome to nginx!</h1>
-	<p>If you see this page, the nginx web server is successfully installed and
-	working. Further configuration is required.</p>
-	
-	<p>For online documentation and support please refer to
-	<a href="http://nginx.org/">nginx.org</a>.<br/>
-	Commercial support is available at
-	<a href="http://nginx.com/">nginx.com</a>.</p>
-	
-	<p><em>Thank you for using nginx.</em></p>
-	</body>
-	</html>
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "WebSite",
+      "name": "国王云",
+      "alternateName": ["KiNG Blog", "国王云博客"],
+      "url": "https://boke.010213.xyz/"
+    }
+    </script>
+
+    <title>国王云-KiNG Blog</title>
+    
+    <meta property="og:site_name" content="国王云">
+    
+    <link rel="icon" type="image/png" sizes="96x96" href="https://img.010213.xyz/favicon-96x96.png">
+    <link rel="canonical" href="https://boke.010213.xyz/">
+    
+    <meta name="description" content="提供科学上网教程、Clash下载、翻墙软件、VPN节点与网络代理教程。">
+    <meta name="keywords" content="科学上网,翻墙,VPN,Clash,TikTok,代理节点">
+    <meta property="og:title" content="KiNG Blog - 国王云">
+    <meta property="og:description" content="科学上网教程与代理工具分享">
+    <meta property="og:image" content="https://img.771169.xyz/img/2025/touxiang.jpg">
+    <meta property="og:url" content="https://boke.010213.xyz/">
+    </head>
+<style>
+  body {
+    margin:0;
+    padding:0;
+    font-family:"Segoe UI",Arial,sans-serif;
+    overflow:hidden;
+    background: linear-gradient(135deg, #0a0a1f, #1a0a2a, #0a1a2f);
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+  }
+
+  canvas {
+    position:fixed;
+    top:0;
+    left:0;
+    z-index:0;
+  }
+
+  .scanline {
+    position: fixed;
+    top:0;
+    left:0;
+    width:100%;
+    height:100%;
+    background: linear-gradient(to bottom, rgba(0,255,255,0.05) 50%, transparent 50%);
+    background-size: 100% 4px;
+    pointer-events:none;
+    animation: scan 3s linear infinite;
+    z-index:1;
+  }
+  @keyframes scan{
+    0%{background-position:0 0;}
+    100%{background-position:0 4px;}
+  }
+
+  .container {
+    position:relative;
+    z-index:2;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(12px);
+    border-radius: 20px;
+    padding:40px 30px;
+    text-align:center;
+    width:90%;
+    max-width:600px;
+    border: 1px solid rgba(0, 255, 255, 0.3);
+    box-shadow: 0 0 40px rgba(0, 255, 255, 0.2);
+  }
+
+  .avatar-wrapper{
+    position: relative;
+    display: inline-block;
+  }
+
+  .avatar {
+    width:130px;
+    height:130px;
+    border-radius:50%;
+    border:2px solid #0ff;
+    box-shadow:0 0 25px #0ff;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100%{transform: translateY(0);}
+    50%{transform: translateY(-15px);}
+  }
+
+  .avatar-ring{
+    position:absolute;
+    top:170px;
+    left:50%;
+    transform: translateX(-50%);
+    width:160px;
+    height:20px;
+    border-radius:50%;
+    background: radial-gradient(ellipse at center, rgba(0,255,255,0.6), transparent 70%);
+    filter: blur(8px);
+    animation: ringPulse 3s infinite ease-in-out;
+  }
+
+  @keyframes ringPulse{
+    0%,100%{transform:translateX(-50%) scale(1);opacity:0.6;}
+    50%{transform:translateX(-50%) scale(1.2);opacity:1;}
+  }
+
+  h1{
+    font-size:28px;
+    margin-top:25px;
+    background: linear-gradient(90deg,#0ff,#0af,#0ff);
+    -webkit-background-clip:text;
+    -webkit-text-fill-color:transparent;
+    text-shadow:0 0 15px rgba(0,255,255,0.6);
+  }
+
+  p{
+    font-size:16px;
+    margin:15px 0 25px;
+    color:#a0d8ff;
+    line-height:1.5;
+  }
+
+  .btn{
+    display:inline-block;
+    padding:14px 40px;
+    font-size:16px;
+    font-weight:bold;
+    color:#0ff;
+    border:1px solid rgba(0,255,255,0.6);
+    border-radius:50px;
+    background: rgba(0, 255, 255,0.1);
+    backdrop-filter: blur(5px);
+    text-decoration:none;
+    box-shadow:0 0 25px rgba(0,255,255,0.4);
+    position:relative;
+    overflow:hidden;
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .btn:hover{
+    transform: scale(1.08);
+    box-shadow:0 0 40px rgba(0,255,255,0.9);
+  }
+
+  .btn::after{
+    content:"";
+    position:absolute;
+    top:50%;
+    left:50%;
+    width:0;
+    height:0;
+    border-radius:50%;
+    background: rgba(0,255,255,0.2);
+    transform:translate(-50%,-50%);
+    transition: width 0.6s ease, height 0.6s ease;
+    z-index:-1;
+  }
+
+  .btn:active::after{
+    width:300px;
+    height:300px;
+  }
+
+  em{
+    display:block;
+    margin-top:25px;
+    font-size:14px;
+    color:#88cfff;
+  }
+
+  .floating-shape{
+    position:absolute;
+    border:1px solid rgba(0,255,255,0.3);
+    width:20px;
+    height:20px;
+    border-radius:4px;
+    animation: floatShape 6s linear infinite;
+    z-index:1;
+  }
+
+  @keyframes floatShape{
+    0%{transform: translate(0,0) rotate(0deg);}
+    50%{transform: translate(50px,-30px) rotate(180deg);}
+    100%{transform: translate(0,0) rotate(360deg);}
+  }
+</style>
+</head>
+<body>
+
+<canvas id="bg"></canvas>
+<div class="scanline"></div>
+
+<div class="container">
+  <div class="avatar-wrapper">
+    <img src="https://img.771169.xyz/img/2025/touxiang.jpg" alt="头像" class="avatar">
+    <div class="avatar-ring"></div>
+  </div>
+  <h1>欢迎访问KiNG的博客 </h1>
+  <p>🚀下载网络代理软件、获取科学上网教程，以及破解软件分享。我们的教程手把手教你，轻松上网，自由探索全球内容。</p>
+  <a href="https://boke.010213.xyz/" class="btn">进入博客</a>
+  <em>💡提供最新翻墙软件和网络教程，安全高效，畅享全球信息。</em>
+</div>
+
+<div class="floating-shape" style="top:50px; left:80px;"></div>
+<div class="floating-shape" style="top:200px; left:300px;"></div>
+<div class="floating-shape" style="top:400px; left:150px;"></div>
+<div class="floating-shape" style="top:100px; left:500px;"></div>
+
+<script>
+const canvas = document.getElementById("bg");
+const ctx = canvas.getContext("2d");
+let w = canvas.width = window.innerWidth;
+let h = canvas.height = window.innerHeight;
+let stars = [];
+for(let i=0;i<120;i++){
+  stars.push({x:Math.random()*w,y:Math.random()*h,r:Math.random()*2,d:Math.random()*1});
+}
+
+function drawStars(){
+  ctx.clearRect(0,0,w,h);
+  ctx.fillStyle = "rgba(0,255,255,0.6)";
+  ctx.beginPath();
+  for(let s of stars){
+    ctx.moveTo(s.x,s.y);
+    ctx.arc(s.x,s.y,s.r,0,Math.PI*2,true);
+  }
+  ctx.fill();
+  updateStars();
+}
+
+function updateStars(){
+  for(let s of stars){
+    s.y += s.d;
+    if(s.y>h){ s.y=0; s.x=Math.random()*w; }
+  }
+}
+
+function animate(){
+  drawStars();
+  requestAnimationFrame(animate);
+}
+animate();
+
+window.addEventListener("resize",()=>{
+  w=canvas.width=window.innerWidth;
+  h=canvas.height=window.innerHeight;
+});
+</script>
+
+</body>
+</html>
 	`
 	return text;
 }
